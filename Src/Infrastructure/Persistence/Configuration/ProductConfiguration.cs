@@ -16,11 +16,13 @@ namespace Infrastructure.Persistence.Configuration
         {
             builder.ToTable("Products");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id).IsClustered(true);
 
-            builder.Property(x => x.Id).HasConversion(
+            builder.Property(x => x.Id)
+                .HasConversion(
                 producId => producId.value,
-                value => new ProductId(value));
+                value => new ProductId(value))
+                .ValueGeneratedOnAdd();
             builder.Property(x => x.Price).HasConversion(
               producPrice => producPrice.Value,
               value => ProductPrice.Create(value));
