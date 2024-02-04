@@ -1,4 +1,5 @@
-﻿using Domain.Primitives;
+﻿using Domain.DomainErrors;
+using Domain.Primitives;
 using Domain.Products;
 using Domain.ValueObjects;
 using ErrorOr;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Products.Create
 {
-    internal sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ErrorOr<Unit>>
+    public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ErrorOr<Unit>>
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -28,12 +29,8 @@ namespace Application.Products.Create
             {
                 if (ProductPrice.Create(command.price) is not ProductPrice productPrice)
                 {
-                    return Error.Validation("Product.Price", "Price is not valid ");
-                    //throw new ArgumentException(nameof(productPrice));
+                    return ErrorDomain.Product.PriceInvalid;
                 }
-
-                if (productPrice is null)
-                    return Error.Validation("Product.Price", "Price has not a valid format");
 
                 var product = new Product(command.name, command.sku, command.status, command.stock, command.description, productPrice);
 
