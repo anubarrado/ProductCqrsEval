@@ -1,4 +1,5 @@
 ﻿using Domain.Products;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,7 +21,10 @@ namespace Infrastructure.Persistence.Configuration
             builder.Property(x => x.Id).HasConversion(
                 producId => producId.value,
                 value => new ProductId(value));
-            
+            builder.Property(x => x.Price).HasConversion(
+              producPrice => producPrice.Value,
+              value => ProductPrice.Create(value));
+
             builder.Property(p => p.Sku).HasMaxLength(10);
             builder.HasIndex(p => p.Sku).IsUnique();
             builder.Property(p => p.Name).HasMaxLength(255);
@@ -29,6 +33,7 @@ namespace Infrastructure.Persistence.Configuration
             builder.Property(p => p.Description).HasMaxLength(1024);
             builder.Ignore(p => p.Discount);
             builder.Ignore(p => p.FinalPrice);
+            
         }
     }
 }
