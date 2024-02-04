@@ -11,6 +11,7 @@ namespace Domain.Products
     public sealed class Product : AggregateRoot
     {
         public ProductId Id { get; private set; }
+        public string Sku { get; set; } = string.Empty;
         public string Name { get; private set; } = string.Empty;
         public bool Status { get; private set; }
         public int Stock { get; private set; }
