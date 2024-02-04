@@ -8,7 +8,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : ApiController
     {
         private readonly ISender _mediator;
 
@@ -22,8 +22,10 @@ namespace WebApi.Controllers
         {
             var createResult = await _mediator.Send(command);
 
-            //return createResult;
-            return Created();
+            return createResult.Match(
+                customer => Created(),
+                errors => Problem(errors)
+                );
         }
 
 
