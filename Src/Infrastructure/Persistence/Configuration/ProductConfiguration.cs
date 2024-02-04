@@ -20,8 +20,9 @@ namespace Infrastructure.Persistence.Configuration
 
             builder.Property(x => x.Id)
                 .HasConversion(
-                producId => producId.value,
-                value => new ProductId(value))
+                    producId => producId.value,
+                    value => new ProductId(value)
+                )
                 .ValueGeneratedOnAdd();
             builder.Property(x => x.Price).HasConversion(
               producPrice => producPrice.Value,
@@ -29,13 +30,17 @@ namespace Infrastructure.Persistence.Configuration
 
             builder.Property(p => p.Sku).HasMaxLength(10);
             builder.HasIndex(p => p.Sku).IsUnique();
+
             builder.Property(p => p.Name).HasMaxLength(255);
+
             builder.Property(p => p.Status);
+
             builder.Property(p => p.Stock);
+
             builder.Property(p => p.Description).HasMaxLength(1024);
+
             builder.Ignore(p => p.Discount);
-            builder.Ignore(p => p.FinalPrice);
-            
+            builder.Ignore(p => p.FinalPrice);            
         }
     }
 }

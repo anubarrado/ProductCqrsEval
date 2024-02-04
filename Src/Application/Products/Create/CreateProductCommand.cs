@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace Application.Products.Create
 {
     public record CreateProductCommand(
-        string name, bool status, int stock, string description, decimal price
+        string name, string sku, bool status, int stock, string description, decimal price
     ) : IRequest<Unit>;
 }

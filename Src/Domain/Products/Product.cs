@@ -26,9 +26,10 @@ namespace Domain.Products
         {            
         }
 
-        public Product(string name, bool status, int stock, string description, ProductPrice price)
+        public Product(string name, string sku, bool status, int stock, string description, ProductPrice price)
         {
             Name = name;
+            Sku = sku;
             Status = status;
             Stock = stock;
             Description = description;

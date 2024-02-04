@@ -28,7 +28,7 @@ namespace Application.Products.Create
                 throw new ArgumentException(nameof(productPrice));
             }
 
-            var product = new Product(command.name, command.status, command.stock, command.description, productPrice);
+            var product = new Product(command.name, command.sku, command.status, command.stock, command.description, productPrice);
 
             await _productRepository.Add(product);
             await _unitOfWork.SaveChangesAsync();
