@@ -32,7 +32,17 @@ namespace Application.Products.Create
                     return ErrorDomain.Product.PriceInvalid;
                 }
 
-                var product = new Product(command.name, command.sku, command.status, command.stock, command.description, productPrice);
+                if (ProductStock.Create(command.stock) is not ProductStock productStock)
+                {
+                    return ErrorDomain.Product.StockInvalid;
+                }
+
+                if (ProductSku.Create(command.sku) is not ProductSku productSku)
+                {
+                    return ErrorDomain.Product.SkuInvalid;
+                }
+
+                var product = new Product(command.name, productSku, command.status, productStock, command.description, productPrice);
 
                 await _productRepository.Add(product);
                 await _unitOfWork.SaveChangesAsync();

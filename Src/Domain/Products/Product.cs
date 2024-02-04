@@ -11,13 +11,12 @@ namespace Domain.Products
     public sealed class Product : AggregateRoot
     {
         public ProductId Id { get; private set; }
-        public string Sku { get; set; } = string.Empty;
+        public ProductSku Sku { get; set; }
         public string Name { get; private set; } = string.Empty;
         public bool Status { get; private set; }
-        public int Stock { get; private set; }
+        public ProductStock Stock { get; private set; }
         public string Description { get; private set; } = string.Empty;
         public ProductPrice Price { get; private set; }
-
 
         public decimal Discount { get; private set; }
         public decimal FinalPrice { get; private set; }
@@ -26,7 +25,7 @@ namespace Domain.Products
         {            
         }
 
-        public Product(string name, string sku, bool status, int stock, string description, ProductPrice price)
+        public Product(string name, ProductSku sku, bool status, ProductStock stock, string description, ProductPrice price)
         {
             Name = name;
             Sku = sku;

@@ -12,6 +12,9 @@ namespace Domain.DomainErrors
         public static class Product
         {
             public static Error PriceInvalid => Error.Validation("Product.Price", "Price is not valid ");
+            public static Error StockInvalid => Error.Validation("Product.Stock", "Stock is not valid ");
+            public static Error SkuInvalid => Error.Validation("Product.Sku", "SKU is not valid ");
+
         }
     }
 }
