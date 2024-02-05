@@ -19,7 +19,15 @@ namespace Domain.Products
         public ProductPrice Price { get; private set; }
 
         public decimal Discount { get; private set; }
-        public decimal FinalPrice { get; private set; }
+        public decimal FinalPrice {
+            get
+            {
+                if (Discount > 0)
+                    return Price.Value * Discount;
+                else
+                    return Price.Value;
+            }
+        }
 
         public Product()
         {            
