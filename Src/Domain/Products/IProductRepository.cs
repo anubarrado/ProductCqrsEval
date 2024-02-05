@@ -8,6 +8,7 @@ namespace Domain.Products
 {
     public interface IProductRepository
     {
+        Task<List<Product>?> GetAllAsync();
         Task<Product?> GetByIdAsync(int id);
         void Add(Product product);
         void Update(Product product);

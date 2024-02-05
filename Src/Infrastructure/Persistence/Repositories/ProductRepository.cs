@@ -19,6 +19,11 @@ namespace Infrastructure.Persistence.Repositories
 
         public void Add(Product product) => _context.Products.Add(product);
 
+        public async Task<List<Product>?> GetAllAsync()
+        {
+            return await _context.Products.ToListAsync();
+        }
+
         public async Task<Product?> GetByIdAsync(int id)
         {
             return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);

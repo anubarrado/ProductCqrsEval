@@ -1,5 +1,6 @@
 ﻿using Application.Products.Create;
 using Application.Products.Delete;
+using Application.Products.GetAll;
 using Application.Products.GetById;
 using Application.Products.Update;
 using MediatR;
@@ -57,6 +58,17 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var productResult = await _mediator.Send(new GetProductByIdQuery(id));
+
+            return productResult.Match(
+                product => Ok(product),
+                errors => Problem(errors)
+            );
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var productResult = await _mediator.Send(new GetAllProductsQuery());
 
             return productResult.Match(
                 products => Ok(products),
