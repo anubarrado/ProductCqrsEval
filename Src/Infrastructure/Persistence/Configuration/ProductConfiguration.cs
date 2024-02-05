@@ -44,6 +44,7 @@ namespace Infrastructure.Persistence.Configuration
 
             builder.Property(p => p.Description).HasMaxLength(1024);
 
+            builder.Ignore(p => p.StatusName);
             builder.Ignore(p => p.Discount);
             builder.Ignore(p => p.FinalPrice);            
         }

@@ -32,7 +32,7 @@ namespace Application.Products.GetById
                 product.Id,
                 product.Name,
                 product.Sku.Value,
-                product.Status,
+                product.StatusName,
                 product.Stock.Value,
                 product.Description,
                 product.Price.Value,
