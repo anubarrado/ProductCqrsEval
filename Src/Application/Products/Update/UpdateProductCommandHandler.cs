@@ -10,20 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Products.Create
+namespace Application.Products.Update
 {
-    public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ErrorOr<Unit>>
+    public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, ErrorOr<Unit>>
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public UpdateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository ?? throw new ArgumentException(nameof(productRepository));
             _unitOfWork = unitOfWork ?? throw new ArgumentException(nameof(unitOfWork));
         }
 
-        public async Task<ErrorOr<Unit>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Unit>> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -42,15 +42,15 @@ namespace Application.Products.Create
                     return ErrorDomain.ErrorProduct.SkuInvalid;
                 }
 
-                var product = new Product(command.name, productSku, command.status, productStock, command.description, productPrice);
+                var product = new Product(command.id, command.name, productSku, command.status, productStock, command.description, productPrice);
 
-                _productRepository.Add(product);
+                _productRepository.Update(product);
                 await _unitOfWork.SaveChangesAsync();
                 return Unit.Value;
             }
             catch (Exception ex)
             {
-                return Error.Failure("CreateProduct.Failure", ex.Message + (ex.InnerException == null ? "" : " - " + ex.InnerException?.Message));
+                return Error.Failure("UpdateProduct.Failure", ex.Message + (ex.InnerException == null ? "" : " - " + ex.InnerException?.Message));
             }
         }
     }

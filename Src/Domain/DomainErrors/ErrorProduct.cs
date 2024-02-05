@@ -9,7 +9,7 @@ namespace Domain.DomainErrors
 {
     public static partial class ErrorDomain
     {
-        public static class Product
+        public static class ErrorProduct
         {
             public static Error PriceInvalid => Error.Validation("Product.Price", "Price is not valid ");
             public static Error StockInvalid => Error.Validation("Product.Stock", "Stock is not valid ");

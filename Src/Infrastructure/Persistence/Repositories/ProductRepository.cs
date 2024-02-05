@@ -17,11 +17,12 @@ namespace Infrastructure.Persistence.Repositories
             _context = context ?? throw new ArgumentException(nameof(context));
         }
 
-        public async Task Add(Product product) => await _context.Products.AddAsync(product);
+        public void Add(Product product) => _context.Products.Add(product);
 
-        public async Task<Product?> GetByIdAsync(ProductId id)
+        public async Task<Product?> GetByIdAsync(int id)
         {
             return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
+        public void Update(Product product) => _context.Products.Update(product);
     }
 }

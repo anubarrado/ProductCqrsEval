@@ -1,4 +1,5 @@
 ﻿using Application.Products.Create;
+using Application.Products.Update;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,18 @@ namespace WebApi.Controllers
             var createResult = await _mediator.Send(command);
 
             return createResult.Match(
-                customer => Created(),
+                customer => Created(nameof(this.Create), null),
+                errors => Problem(errors)
+                );
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateProductCommand command)
+        {
+            var createResult = await _mediator.Send(command);
+
+            return createResult.Match(
+                customer => NoContent(),
                 errors => Problem(errors)
                 );
         }

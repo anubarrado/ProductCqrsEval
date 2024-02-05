@@ -19,10 +19,10 @@ namespace Infrastructure.Persistence.Configuration
             builder.HasKey(x => x.Id).IsClustered(true);
 
             builder.Property(x => x.Id)
-                .HasConversion(
-                    producId => producId.value,
-                    value => new ProductId(value)
-                )
+                //.HasConversion(
+                //    producId => producId.value,
+                //    value => new ProductId(value)
+                //)
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Price).HasConversion(

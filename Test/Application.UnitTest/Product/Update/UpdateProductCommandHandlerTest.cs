@@ -1,30 +1,33 @@
 using Application.Products.Create;
+using Application.Products.Update;
 using Domain.DomainErrors;
 using Domain.Primitives;
 using Domain.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Application.UnitTest.Product.Create
+namespace Application.UnitTest.Product.Update
 {
-    public class CreateProductCommandHandlerTest
+    public class UpdateProductCommandHandlerTest
     {
         private readonly Mock<IProductRepository> _moqProductRepository;
         private readonly Mock<IUnitOfWork> _moqUnitOfWork;
-        private readonly CreateProductCommandHandler _handler;
+        private readonly UpdateProductCommandHandler _handler;
 
-        public CreateProductCommandHandlerTest()
+        private readonly int id = 123;
+
+        public UpdateProductCommandHandlerTest()
         {
             _moqProductRepository = new Mock<IProductRepository>();
             _moqUnitOfWork = new Mock<IUnitOfWork>();
-            _handler = new CreateProductCommandHandler(_moqProductRepository.Object, _moqUnitOfWork.Object);
+            _handler = new UpdateProductCommandHandler(_moqProductRepository.Object, _moqUnitOfWork.Object);
         }
 
         [Fact]
-        public async Task HandleCreateProductCommand_WhenPriceHasInvalidFormat_ShouldReturnValidationErrorAsync()
+        public async Task HandleUpdateProductCommand_WhenPriceHasInvalidFormat_ShouldReturnValidationErrorAsync()
         {
             //arrange
-            CreateProductCommand command = new CreateProductCommand("Beach chair", "DDDD123456", true, 10, "Multipurpose Beach chair", -20);
+            UpdateProductCommand command = new UpdateProductCommand(id, "Beach chair", "DDDD023456", true, 10, "Multipurpose Beach chair", -20);
 
             //act
             var result = await _handler.Handle(command, default);
@@ -37,10 +40,10 @@ namespace Application.UnitTest.Product.Create
         }
 
         [Fact]
-        public async Task HandleCreateProductCommand_WhenStockHasInvalidFormat_ShouldReturnValidationErrorAsync()
+        public async Task HandleUpdateProductCommand_WhenStockHasInvalidFormat_ShouldReturnValidationErrorAsync()
         {
             //arrange
-            CreateProductCommand command = new CreateProductCommand("Beach chair", "DDDD123456", true, -10, "Multipurpose Beach chair", 20);
+            UpdateProductCommand command = new UpdateProductCommand(id, "Beach chair", "DDDD023456", true, -10, "Multipurpose Beach chair", 20);
 
             //act
             var result = await _handler.Handle(command, default);
@@ -53,10 +56,10 @@ namespace Application.UnitTest.Product.Create
         }
 
         [Fact]
-        public async Task HandleCreateProductCommand_WhenSkuHasInvalidFormat_ShouldReturnValidationErrorAsync()
+        public async Task HandleUpdateProductCommand_WhenSkuHasInvalidFormat_ShouldReturnValidationErrorAsync()
         {
             //arrange
-            CreateProductCommand command = new CreateProductCommand("Beach chair", "d123456", true, 10, "Multipurpose Beach chair", 20);
+            UpdateProductCommand command = new UpdateProductCommand(id,"Beach chair", "d123456", true, 10, "Multipurpose Beach chair", 20);
 
             //act
             var result = await _handler.Handle(command, default);
@@ -69,10 +72,10 @@ namespace Application.UnitTest.Product.Create
         }
 
         [Fact]
-        public async Task HandleCreateProductCommand_WhenNameIsEmpty_ShouldReturnValidationErrorAsync()
+        public async Task HandleUpdateProductCommand_WhenNameIsEmpty_ShouldReturnValidationErrorAsync()
         {
             //arrange
-            CreateProductCommand command = new CreateProductCommand("", "DDDD123456", true, 10, "Multipurpose Beach chair", -20);
+            UpdateProductCommand command = new UpdateProductCommand(id, "", "DDDD023456", true, 10, "Multipurpose Beach chair", -20);
 
             //act
             var result = await _handler.Handle(command, default);
@@ -83,10 +86,10 @@ namespace Application.UnitTest.Product.Create
         }
 
         [Fact]
-        public async Task HandleCreateProductCommand_WhenDescriptionIsEmpty_ShouldReturnValidationErrorAsync()
+        public async Task HandleUpdateProductCommand_WhenDescriptionIsEmpty_ShouldReturnValidationErrorAsync()
         {
             //arrange
-            CreateProductCommand command = new CreateProductCommand("Beach chair", "DDDD123456", true, 10, "", -20);
+            UpdateProductCommand command = new UpdateProductCommand(id, "Beach chair", "DDDD023456", true, 10, "", -20);
 
             //act
             var result = await _handler.Handle(command, default);
@@ -97,10 +100,10 @@ namespace Application.UnitTest.Product.Create
         }
 
         [Fact]
-        public async Task HandleCreateProductCommand_WhenIsOk_ShouldReturnOkAsync()
+        public async Task HandleUpdateProductCommand_WhenIsOk_ShouldReturnOkAsync()
         {
             //arrange
-            CreateProductCommand command = new CreateProductCommand("Beach chair", "DDDD123456", true, 10, "Multipurpose Beach chair", 20);
+            UpdateProductCommand command = new UpdateProductCommand(id, "Beach chair", "DDDD023456", true, 10, "Multipurpose Beach chair", 20);
 
             //act
             var result = await _handler.Handle(command, default);

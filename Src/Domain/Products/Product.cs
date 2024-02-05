@@ -10,7 +10,7 @@ namespace Domain.Products
 {
     public sealed class Product : AggregateRoot
     {
-        public ProductId Id { get; private set; }
+        public int Id { get; private set; }
         public ProductSku Sku { get; set; }
         public string Name { get; private set; } = string.Empty;
         public bool Status { get; private set; }
@@ -27,6 +27,17 @@ namespace Domain.Products
 
         public Product(string name, ProductSku sku, bool status, ProductStock stock, string description, ProductPrice price)
         {
+            Name = name;
+            Sku = sku;
+            Status = status;
+            Stock = stock;
+            Description = description;
+            Price = price;
+        }
+
+        public Product(int id, string name, ProductSku sku, bool status, ProductStock stock, string description, ProductPrice price)
+        {
+            Id = id;
             Name = name;
             Sku = sku;
             Status = status;
