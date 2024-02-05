@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Products\Delete\" />
     <Folder Include="Products\GetAll\" />
     <Folder Include="Products\GetbyId\" />
   </ItemGroup>

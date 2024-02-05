@@ -11,6 +11,6 @@ namespace Domain.Products
         Task<Product?> GetByIdAsync(int id);
         void Add(Product product);
         void Update(Product product);
-        //void Delete(Product product);
+        void Delete(Product id);
     }
 }

@@ -15,6 +15,8 @@ namespace Domain.DomainErrors
             public static Error StockInvalid => Error.Validation("Product.Stock", "Stock is not valid ");
             public static Error SkuInvalid => Error.Validation("Product.Sku", "SKU is not valid ");
 
+            public static Error NotExist => Error.Validation("Product.NoExist", "The product not exist");
+
         }
     }
 }
