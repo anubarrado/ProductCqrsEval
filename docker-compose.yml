@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "dbpassword+24$"
+      ACCEPT_EULA: "Y"
+      # MSSQL_LCID: 3082
+      MSSQL_AGENT_ENABLED: true
+      TZ: "America/Lima"
+    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+      - ./archivos/data:/var/opt/mssql/data
+      - ./archivos/log:/var/opt/mssql/log
+      - ./archivos/secrets:/var/opt/mssql/secrets
+
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    build:
+      context: .
+      dockerfile: Src/WebApi/Dockerfile
+    depends_on:
+      - db
+
+networks:
+  default:
+    name: storeVnet
