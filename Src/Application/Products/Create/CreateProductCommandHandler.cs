@@ -50,7 +50,7 @@ namespace Application.Products.Create
             }
             catch (Exception ex)
             {
-                return Error.Failure("CreateProduct.Failure", ex.Message);
+                return Error.Failure("CreateProduct.Failure", ex.Message + (ex.InnerException == null ? "" : " - " + ex.InnerException?.Message));
             }
         }
     }

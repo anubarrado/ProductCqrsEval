@@ -23,7 +23,7 @@ namespace Application.Products.Create
                .WithName("SKU");
 
             RuleFor(r => r.price)
-               .NotEmpty()
+               .GreaterThanOrEqualTo(0)
                .WithName("Price");
 
             RuleFor(r => r.status)
@@ -31,7 +31,7 @@ namespace Application.Products.Create
                .WithName("Status");
 
             RuleFor(r => r.stock)
-               .NotEmpty()
+               .GreaterThanOrEqualTo(0)
                .WithName("Stock");
 
             RuleFor(r => r.description)
