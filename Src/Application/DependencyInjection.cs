@@ -23,6 +23,7 @@ namespace Application
                 typeof(ValidationBehavior<,>)
             );
             services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyReference>();
+            services.AddLazyCache();
 
             return services;
         }

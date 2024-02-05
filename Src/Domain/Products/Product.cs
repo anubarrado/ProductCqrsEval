@@ -59,5 +59,10 @@ namespace Domain.Products
         {
             Discount = discount;
         }
+
+        public void SetStatusName(string statusName)
+        {
+            StatusName = statusName;
+        }
     }
 }

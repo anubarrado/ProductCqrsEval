@@ -17,11 +17,13 @@ namespace Application.Products.GetById
     {
         private readonly IProductRepository _ProductRepository;
         private readonly IDiscountService _discountService;
+        private readonly ICacheService _cacheService;
 
-        public GetProductByIdQueryHandler(IProductRepository ProductRepository, IDiscountService discountService)
+        public GetProductByIdQueryHandler(IProductRepository ProductRepository, IDiscountService discountService, ICacheService cacheService)
         {
             _ProductRepository = ProductRepository ?? throw new ArgumentNullException(nameof(ProductRepository));
             _discountService = discountService ?? throw new ArgumentNullException(nameof(discountService));
+            _cacheService = cacheService;
         }
 
         public async Task<ErrorOr<ProductByIdResponse>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
@@ -32,8 +34,10 @@ namespace Application.Products.GetById
             }
                         
             var discount = await _discountService.GetDiscountByProductId(query.id);
+            string statusName = _cacheService.GetCacheByKey(product.Status);
 
             product.SetDiscount(discount == null ? 0 : discount.Value);
+            product.SetStatusName(statusName);
 
             return new ProductByIdResponse(
                 product.Id,

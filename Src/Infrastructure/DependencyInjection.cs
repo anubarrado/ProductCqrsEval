@@ -34,6 +34,8 @@ namespace Infrastructure
 
             services.AddScoped<IDiscountService, DiscountService>();
 
+            services.AddScoped<ICacheService, CacheService>();
+
             return services;
         }
 
