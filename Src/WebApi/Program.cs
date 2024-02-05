@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
-builder.Services.AddPresentation()
+builder.Services.AddPresentation(builder.Configuration)
     .AddInfraestructure(builder.Configuration)
     .AddApplication();
 
@@ -25,6 +25,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.ApplyMigrations();
 }
+
+app.UseW3CLogging();
 
 app.UseExceptionHandler("/error");
 
