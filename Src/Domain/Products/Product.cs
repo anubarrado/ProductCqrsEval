@@ -54,5 +54,10 @@ namespace Domain.Products
             Description = description;
             Price = price;
         }
+
+        public void SetDiscount(int discount)
+        {
+            Discount = discount;
+        }
     }
 }

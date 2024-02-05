@@ -1,4 +1,5 @@
-﻿using Application.Products.Response;
+﻿using Application.Common.Interfaces;
+using Application.Products.Response;
 using Domain.Products;
 using ErrorOr;
 using MediatR;
@@ -15,10 +16,12 @@ namespace Application.Products.GetById
     public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ErrorOr<ProductByIdResponse>>
     {
         private readonly IProductRepository _ProductRepository;
+        private readonly IDiscountService _discountService;
 
-        public GetProductByIdQueryHandler(IProductRepository ProductRepository)
+        public GetProductByIdQueryHandler(IProductRepository ProductRepository, IDiscountService discountService)
         {
             _ProductRepository = ProductRepository ?? throw new ArgumentNullException(nameof(ProductRepository));
+            _discountService = discountService ?? throw new ArgumentNullException(nameof(discountService));
         }
 
         public async Task<ErrorOr<ProductByIdResponse>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
@@ -27,6 +30,10 @@ namespace Application.Products.GetById
             {
                 return ErrorProduct.NotFound;
             }
+                        
+            var discount = await _discountService.GetDiscountByProductId(query.id);
+
+            product.SetDiscount(discount == null ? 0 : discount.Value);
 
             return new ProductByIdResponse(
                 product.Id,

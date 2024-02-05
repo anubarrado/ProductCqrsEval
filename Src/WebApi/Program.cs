@@ -1,5 +1,5 @@
 using Application;
-using Infrastructure.Services;
+using Infrastructure;
 using WebApi;
 using WebApi.Extensions;
 
