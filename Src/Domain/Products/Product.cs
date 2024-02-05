@@ -23,7 +23,7 @@ namespace Domain.Products
             get
             {
                 if (Discount > 0)
-                    return Price.Value * Discount;
+                    return Price.Value * (100 - Discount) / 100;
                 else
                     return Price.Value;
             }
