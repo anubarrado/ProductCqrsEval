@@ -16,6 +16,7 @@ namespace Domain.DomainErrors
             public static Error SkuInvalid => Error.Validation("Product.Sku", "SKU is not valid ");
 
             public static Error NotExist => Error.Validation("Product.NoExist", "The product not exist");
+            public static Error NotFound => Error.Validation("Product.NotFound", "The Product with the provide Id was not found.");
 
         }
     }

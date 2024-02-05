@@ -1,5 +1,6 @@
 ﻿using Application.Products.Create;
 using Application.Products.Delete;
+using Application.Products.GetById;
 using Application.Products.Update;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +26,7 @@ namespace WebApi.Controllers
             var createResult = await _mediator.Send(command);
 
             return createResult.Match(
-                customer => Created(nameof(this.Create), null),
+                product => Created(nameof(this.Create), null),
                 errors => Problem(errors)
                 );
         }
@@ -33,10 +34,10 @@ namespace WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateProductCommand command)
         {
-            var createResult = await _mediator.Send(command);
+            var updateResult = await _mediator.Send(command);
 
-            return createResult.Match(
-                customer => NoContent(),
+            return updateResult.Match(
+                product => NoContent(),
                 errors => Problem(errors)
                 );
         }
@@ -44,19 +45,23 @@ namespace WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> Detele([FromBody] DeleteProductCommand command)
         {
-            var createResult = await _mediator.Send(command);
+            var deleteResult = await _mediator.Send(command);
 
-            return createResult.Match(
-                customer => NoContent(),
+            return deleteResult.Match(
+                product => NoContent(),
                 errors => Problem(errors)
                 );
         }
 
-
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok();
+            var productResult = await _mediator.Send(new GetProductByIdQuery(id));
+
+            return productResult.Match(
+                products => Ok(products),
+                errors => Problem(errors)
+            );
         }
     }
 }
