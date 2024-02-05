@@ -18,7 +18,7 @@ namespace Domain.Products
         public string Description { get; private set; } = string.Empty;
         public ProductPrice Price { get; private set; }
 
-        public decimal Discount { get; private set; }
+        public int Discount { get; private set; }
         public decimal FinalPrice {
             get
             {
