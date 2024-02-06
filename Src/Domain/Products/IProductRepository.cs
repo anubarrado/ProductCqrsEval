@@ -10,6 +10,7 @@ namespace Domain.Products
     {
         Task<List<Product>?> GetAllAsync();
         Task<Product?> GetByIdAsync(int id);
+        Task<Product?> GetBySkuAsync(string sku);
         void Add(Product product);
         void Update(Product product);
         void Delete(Product id);

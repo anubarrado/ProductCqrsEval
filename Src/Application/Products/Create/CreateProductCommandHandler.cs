@@ -41,6 +41,11 @@ namespace Application.Products.Create
                 {
                     return ErrorDomain.ErrorProduct.SkuInvalid;
                 }
+                
+                if (await _productRepository.GetBySkuAsync(command.sku) != null)
+                {
+                    return ErrorDomain.ErrorProduct.SkuExist;
+                }
 
                 var product = new Product(command.name, productSku, command.status, productStock, command.description, productPrice);
 

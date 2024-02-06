@@ -1,4 +1,5 @@
 ﻿using Domain.Products;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,13 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
-        
+
+        public async Task<Product?> GetBySkuAsync(string sku)
+        {
+            var search = ProductSku.Create(sku);
+            return await _context.Products.FirstOrDefaultAsync(p => p.Sku == search);
+        }
+
         public void Update(Product product) => _context.Products.Update(product);
         
         public void Delete(Product product) => _context.Products.Remove(product);
