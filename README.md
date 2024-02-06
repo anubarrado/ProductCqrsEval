@@ -22,6 +22,7 @@ Para levantar el entorno ejecutar:
 docker compose up -d
 ```
 Depurar utilizando visual studio.
+* El container de la db persiste los archivos en la carpeta ```archivos```
 
 ### - Depuración directa
 En caso no se utilice docker, se pude depurar utilizando visual studio.
@@ -38,6 +39,8 @@ Se adicionó el campo SKU para el producto el cual es un campo de tipo string qu
 
 Los campos de stock y precio deben de ser positivos.
 
+Los log del tiempo de respuesta se almacenan en al carpeta ```logs``` la ruta se puede configurar en el appsettings.json
+
 ---
 
 # **EN - Clean Architecture Implementation Project with CQRS***
@@ -51,7 +54,7 @@ For the project, a clean architecture design was applied applying SOLID principl
 
 Patterns such as: CQRS, Mediator, Repository, Work Unit were applied.
 
-Libraries were used such as: FluentaValidation, EF Core, ErrorOr, xUnit, LazyCache, MediatR, Moq.
+Libraries used: FluentaValidation, EF Core, ErrorOr, xUnit, LazyCache, MediatR, Moq.
 
 ##  🛠️Method of execution
 The project can be executed by:
@@ -63,6 +66,7 @@ To set up the environment run:
 docker compose up -d
 ```
 Debug using visual studio.
+* The database container persists files in the ```archivos``` folder
 
 ### - Direct debugging
 In case you don't use Docker, you can debug it using Visual Studio.
@@ -78,3 +82,5 @@ The SKU field was added for the product, which is a string field that must have 
 **Example**: EERR010011
 
 The stock and price fields must be positive.
+
+The response time logs are stored in the ```logs``` folder. The path can be configured in the appsettings.json
