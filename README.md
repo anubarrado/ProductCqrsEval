@@ -14,6 +14,11 @@ Se utilizaron bibliotecas como: FluentaValidation, EF Core, ErrorOr, xUnit, Lazy
 
 ## 🛠️Forma de ejecución
 El proyecto se puede ejecutar:
+
+### - Online
+El proyecto se puede probar en linea en el siguiente enlace:
+[https://store-cqrs-w-2024.azurewebsites.net/swagger](https://store-cqrs-w-2024.azurewebsites.net/swagger)
+
 ### - Usando docker compose
 El proyecto está configurado para utilizar docker compose, dicha configuración levanta un container y la db relacional utilizada (sql server 2022 en linux). 
 
@@ -58,6 +63,11 @@ Libraries used: FluentaValidation, EF Core, ErrorOr, xUnit, LazyCache, MediatR, 
 
 ##  🛠️Method of execution
 The project can be executed by:
+
+### - Online
+The project can be tested online:
+[https://store-cqrs-w-2024.azurewebsites.net/swagger](https://store-cqrs-w-2024.azurewebsites.net/swagger)
+
 ### - Using Docker Compose
 The project is configured to use docker compose, this configuration creates a container and the relational database used (sql server 2022 on linux).
 
